@@ -1,17 +1,20 @@
-import React, { Fragment, useState, useRef } from "react";
-// Material-ui imports
-import { fade, withStyles } from "@material-ui/core/styles";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableRow from "@material-ui/core/TableRow";
-import { TableHead } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import TextField from "@material-ui/core/TextField";
-import minCashFlow from "./script"
+import React, { Fragment, useState, useRef, useEffect } from "react";
+
+// import { styled, withStyles } from "@mui/styles";
+import './home.css';
+import { styled } from "@mui/styles";
+import { alpha } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableRow from "@mui/material/TableRow";
+//import TableHead from "@mui/material/TableHead";
+import Paper from "@mui/material/Paper";
+import InputBase from "@mui/material/InputBase";
+import TextField from "@mui/material/TextField";
+import minCashFlow from "./script";
 
 var fianlAns = [];
 var personColumn = [];
@@ -20,27 +23,29 @@ const useStyles = makeStyles({
     minWidth: 650
   }
 });
-const BootstrapInput = withStyles((theme) => ({
-  root: {
-    "label + &": {
-      marginTop: theme.spacing(3)
-    }
+
+const BootstrapInput = styled(InputBase)(({ theme }) => ({
+  // useEffect(() => {
+  //   const input = document.querySelector('.your-input-class'); 
+  //   if (input) {
+  //     input.style.backgroundColor = 'white';
+  //   }
+  // }, []);
+  
+  borderRadius: 4,
+  position: "relative",
+  backgroundColor: 'white', // Set to white
+  border: "1px solid #ced4da", // Border color for visibility
+  fontSize: 16,
+  width: "60%",
+  padding: "5px 6px",
+  transition: theme.transitions.create(["border-color", "box-shadow"]),
+  marginTop: theme.spacing(3),
+  "&:focus": {
+    boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+    borderColor: theme.palette.primary.main,
   },
-  input: {
-    borderRadius: 4,
-    position: "relative",
-    backgroundColor: theme.palette.common.white,
-    border: "1px solid #ced4da",
-    fontSize: 16,
-    width: "60%",
-    padding: "5px 6px",
-    transition: theme.transitions.create(["border-color", "box-shadow"]),
-    "&:focus": {
-      boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-      borderColor: theme.palette.primary.main
-    }
-  }
-}))(InputBase);
+}));
 
 const buttonStyle = {
   backgroundColor: "white",
@@ -124,7 +129,7 @@ export default function DataTabelVariable() {
     if (row === col) {
       e.target.value = 0;
     }
-    let value = parseFloat(e.target.value) || 0; 
+    let value = parseFloat(e.target.value) || 0;
 
     // if (isNaN(value) || value < 0) {
     //   e.target.value = 0; 
@@ -132,19 +137,20 @@ export default function DataTabelVariable() {
     // }
     if (isNaN(value) || value < 0) {
       setErrorMessage('Please enter a valid non-negative number.');
-      e.target.value = 0; // Clear the input or set to default value (e.g., 0)
-      return; 
+      //alert(errorMessage)
+      e.target.value = 0; 
+      return;
     } else {
-      setErrorMessage(''); // Clear error message if input is valid
+      setErrorMessage(''); 
     }
-   
+
     if (value < 0) {
-      e.target.value = 0; // Optionally reset to 0 or handle as needed to prevent negative values
-      return; 
+      e.target.value = 0; 
+      return;
     }
 
     if (row === col) {
-      value = 0; // Ensure diagonal values are always 0
+      value = 0; 
     }
 
     console.log(e.target.name, value);
@@ -165,33 +171,35 @@ export default function DataTabelVariable() {
 
   const generateTable = () => {
     let table = [];
-
-
     for (let i = 0; i < rowValue; i++) {
       let children = [];
       for (let j = 0; j < columnsValue; j++) {
         children.push(
-          <td>
+          <TableCell key={getUniqueKeyFromArrayIndex(i, j)}>
             <BootstrapInput
               name={getUniqueKeyFromArrayIndex(i, j)}
               onChange={onChangeHandler}
+              style={{backgroundColor: 'white', borderRadius: '5px'}}
             />
-          </td>
+            <div>
+              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+            </div>
+
+          </TableCell>
         );
       }
-      //   console.log(children);
       table.push(
-        <TableHead style={{ backgroundColor: "#ff7366" }}>
-          <TableRow key={i}>
-            <div style={{ paddingTop: 20, paddingLeft: 5, color: "#000000" }}>Person {i + 1} has to pay</div>
-            <TableCell>{children}</TableCell>
-          </TableRow>
-        </TableHead>
+        <TableRow key={i}>
+          <TableCell style={{ padding: "10px" }}>
+            Person {i + 1} has to pay
+          </TableCell>
+          {children}
+        </TableRow>
       );
-      //   console.log(tableCellsData);
     }
     return table;
   };
+
 
   //creating the graph
   function addZeros(array) {
@@ -227,6 +235,7 @@ export default function DataTabelVariable() {
   }
 
   function handleChangeInResult(e) {
+    // showResult?setShowResult(false):setShowResult(true);
     if (tableArrayData.length === 0 || rowValue === 0 || columnsValue === 0)
       return;
     addZeros(tableArrayData)
