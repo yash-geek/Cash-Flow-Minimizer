@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Cash-Flow-Minimizer/static/css/main.c9e3e3f0.css",
+    "main.js": "/Cash-Flow-Minimizer/static/js/main.571bf11d.js",
+    "static/js/488.5738cbfc.chunk.js": "/Cash-Flow-Minimizer/static/js/488.5738cbfc.chunk.js",
+    "index.html": "/Cash-Flow-Minimizer/index.html",
+    "main.c9e3e3f0.css.map": "/Cash-Flow-Minimizer/static/css/main.c9e3e3f0.css.map",
+    "main.571bf11d.js.map": "/Cash-Flow-Minimizer/static/js/main.571bf11d.js.map",
+    "488.5738cbfc.chunk.js.map": "/Cash-Flow-Minimizer/static/js/488.5738cbfc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c9e3e3f0.css",
+    "static/js/main.571bf11d.js"
+  ]
+}
