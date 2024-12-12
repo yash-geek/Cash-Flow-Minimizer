@@ -114,7 +114,7 @@ class MaxHeap {
         if (pair1.first !== pair2.first) {
             return pair1.first - pair2.first;
         }
-        return pair2.second - pair1.second; // Note the reverse comparison for second
+        return pair2.second - pair1.second;
     }
 }
 
@@ -184,10 +184,11 @@ function minCashFlowRec(maxH, minH, result) {
 
     let mxCredit = maxH.extractMax();
     let mxDebit = minH.extractMin();
+    console.log(`maxCredit : ${mxCredit.first} mxDebit : ${mxDebit.first}`)
 
     if (mxCredit.first === 0 || mxDebit.first === 0) return;
 
-    let min = minOf2(-mxDebit.first, mxCredit.first);
+    let min = minOf2(Math.abs(mxDebit.first), Math.abs(mxCredit.first));
     mxCredit.first -= min;
     mxDebit.first += min;
 
@@ -209,15 +210,18 @@ export function minCashFlow(graph) {
     let MinH = new MinHeap();
     let result = []; // Declare result here
     //console.log(graph);
-
+    const arr = []
     for (let i = 0; i < len; i++) {
         let sum = 0;
         for (let j = 0; j < len; j++) {
             sum += (graph[j][i] - graph[i][j]);
         }
+        arr.push(new Pair(sum,i));
         MaxH.insert(new Pair(sum, i));
         MinH.insert(new Pair(sum, i));
     }
+    // console.log(`max heap : ${MaxH} min heap: ${MinH}`)
+    console.log(arr)
     minCashFlowRec(MaxH, MinH, result);
     //console.log(result);
     return result;

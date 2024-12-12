@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useRef } from "react";
-// Material-ui imports
+// MUI imports
 import { fade, withStyles } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -13,7 +13,7 @@ import InputBase from "@material-ui/core/InputBase";
 import TextField from "@material-ui/core/TextField";
 import minCashFlow from "./script"
 
-var fianlAns = [];
+var finalAns = [];
 var personColumn = [];
 const useStyles = makeStyles({
   table: {
@@ -46,7 +46,7 @@ const buttonStyle = {
   backgroundColor: "white",
   border: "1px solid rgb(255, 255, 255)",
   borderRadius: 2,
-  color: "#ff7366",
+  color: "#e68a29",
   textAlign: 'center',
   textDecoration: 'none',
   fontSize: 'inherit',
@@ -124,7 +124,7 @@ export default function DataTabelVariable() {
     if (row === col) {
       e.target.value = 0;
     }
-    let value = parseFloat(e.target.value) || 0; 
+    let value = parseFloat(e.target.value) || 0;
 
     // if (isNaN(value) || value < 0) {
     //   e.target.value = 0; 
@@ -133,14 +133,14 @@ export default function DataTabelVariable() {
     if (isNaN(value) || value < 0) {
       setErrorMessage('Please enter a valid non-negative number.');
       e.target.value = 0; // Clear the input or set to default value (e.g., 0)
-      return; 
+      return;
     } else {
       setErrorMessage(''); // Clear error message if input is valid
     }
-   
+
     if (value < 0) {
       e.target.value = 0; // Optionally reset to 0 or handle as needed to prevent negative values
-      return; 
+      return;
     }
 
     if (row === col) {
@@ -170,18 +170,27 @@ export default function DataTabelVariable() {
     for (let i = 0; i < rowValue; i++) {
       let children = [];
       for (let j = 0; j < columnsValue; j++) {
-        children.push(
-          <td>
-            <BootstrapInput
-              name={getUniqueKeyFromArrayIndex(i, j)}
-              onChange={onChangeHandler}
-            />
-          </td>
-        );
+        i === j ?
+          children.push(
+            <td>
+              <BootstrapInput
+                value={0}
+                name={getUniqueKeyFromArrayIndex(i, j)}
+                onChange={onChangeHandler}
+              />
+            </td>
+          ) : children.push(
+            <td>
+              <BootstrapInput
+                name={getUniqueKeyFromArrayIndex(i, j)}
+                onChange={onChangeHandler}
+              />
+            </td>
+          );
       }
       //   console.log(children);
       table.push(
-        <TableHead style={{ backgroundColor: "#ff7366" }}>
+        <TableHead style={{ backgroundColor: "#e68a29" }}>
           <TableRow key={i}>
             <div style={{ paddingTop: 20, paddingLeft: 5, color: "#000000" }}>Person {i + 1} has to pay</div>
             <TableCell>{children}</TableCell>
@@ -207,13 +216,14 @@ export default function DataTabelVariable() {
     for (var p = 0; p < array.length; p++)
       for (i = 0; i < array[p].length; i++) {
         if (array[p][i] === undefined || array[p][i] === Array(0))
-          array[p][i] = 0;
+          graph[p][i] = 0;
         // document.write(array[p][i] + " ");
-        graph[p][i] = array[p][i];
+        else
+          graph[p][i] = array[p][i];
       }
 
-    fianlAns = [];
-    fianlAns = minCashFlow(graph);
+    finalAns = [];
+    finalAns = minCashFlow(graph);
   }
 
   function handleChangeInPersons(e) {
@@ -268,7 +278,7 @@ export default function DataTabelVariable() {
                     </div>
                   })}
             </div> */}
-                <TableBody style={{ backgroundColor: "#ff7366" }} ref={ref}>{generateTable()}</TableBody>
+                <TableBody style={{ backgroundColor: "##e68a29" }} ref={ref}>{generateTable()}</TableBody>
               </Table>
             </TableContainer>
           </div>
@@ -277,16 +287,18 @@ export default function DataTabelVariable() {
           </div>
           <div>
             {showResult ?
-              fianlAns.map((item, index) => {
-                return <div>
-                  <h4>{item}</h4>
-                </div>
-              })
+              <table style={{ color: 'white' ,border:'1px solid black',padding:'5px',margin:'10px'}}>{
+              finalAns.map((item, index) => {
+                return <tr style={{ color: 'white' }}>
+                  <td style={{ color: 'white',padding:'2px',margin:'2px'}}>{item}</td>
+                </tr>
+              })}
+              </table>
               : null}
           </div>
           <h5>Welcome <br />used : graph, greedy, heaps</h5>
         </div>
-      </div>
+        </div>
     </Fragment>
   );
 }
