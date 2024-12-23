@@ -184,7 +184,7 @@ function minCashFlowRec(maxH, minH, result) {
 
     let mxCredit = maxH.extractMax();
     let mxDebit = minH.extractMin();
-    console.log(`maxCredit : ${mxCredit.first} mxDebit : ${mxDebit.first}`)
+    //console.log(`maxCredit : ${mxCredit.first} mxDebit : ${mxDebit.first}`)
 
     if (mxCredit.first === 0 || mxDebit.first === 0) return;
 
@@ -221,7 +221,7 @@ export function minCashFlow(graph) {
         MinH.insert(new Pair(sum, i));
     }
     // console.log(`max heap : ${MaxH} min heap: ${MinH}`)
-    console.log(arr)
+    //console.log(arr)
     minCashFlowRec(MaxH, MinH, result);
     //console.log(result);
     return result;

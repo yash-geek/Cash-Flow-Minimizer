@@ -147,7 +147,7 @@ export default function DataTabelVariable() {
       value = 0; // Ensure diagonal values are always 0
     }
 
-    console.log(e.target.name, value);
+    //console.log(e.target.name, value);
     setTableCellsData({
       ...tableCellsData,
       [e.target.name]: value
@@ -278,7 +278,7 @@ export default function DataTabelVariable() {
                     </div>
                   })}
             </div> */}
-                <TableBody style={{ backgroundColor: "##e68a29" }} ref={ref}>{generateTable()}</TableBody>
+                <TableBody style={{ backgroundColor: "#e68a29" }} ref={ref}>{generateTable()}</TableBody>
               </Table>
             </TableContainer>
           </div>
