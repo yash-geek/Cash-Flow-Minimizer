@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.eb6aeafe.css","mappings":"AAAA,MAEE,wBAAyB,CADzB,UAAc,CAGd,cAAe,CADf,UAEF","sources":["webpages/home.css"],"sourcesContent":[".body {\r\n  color: #ffffff;\r\n  background-color: #e68a29;\r\n  padding: 50;\r\n  margin-top: -25;\r\n}\r\n\r\n/* \r\n//ff7366\r\n#162562\r\n */\r\n"],"names":[],"sourceRoot":""}
